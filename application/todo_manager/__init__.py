@@ -6,6 +6,4 @@ from flask import Flask
 app = Flask(__name__)
 app.config.from_object("todo_manager.conf.config")
 
-@app.route("/")
-def show_entries():
-    return "hello"
+from todo_manager.views import entries
