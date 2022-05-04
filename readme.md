@@ -20,6 +20,7 @@
 | 9    | complate_flag  | 完了フラグ | INTEGER   | not null  | 完了フラグ      |
 | 10   | frozen_flag    | 凍結フラグ | INTEGER   | not null  | 凍結フラグ      |
 | 11   | priority_rank  | 優先ランク | INTEGER   | not null  | 優先ランク      |
+| 12   | delete_flag    | 削除フラグ | INTEGER   | not null  | 削除フラグ      |
 
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*-coding: utf-8-*-
 from flask import request,redirect,url_for,render_template,flash,session
-from todo_manager import app,ToDoMaster,org_get_logger
+from todo_manager import app,ToDoMaster,org_get_logger,db
 from datetime import datetime
 
 logger = org_get_logger(__name__)
@@ -19,6 +19,13 @@ def show_entries():
 @app.route("/entries",methods=["POST"])
 def add_entry():
     #todoの新規作成処理を実装
+    form = ToDoMaster(
+        name=request.form['name'],
+        detail=request.form['detail'],
+        remarks=request.form['remarks'],
+    )
+    db.session.add(form)
+    db.session.commit()
     return "新しいtodoが出来ました"
 
 @app.route("/entries/new",methods=["GET"])

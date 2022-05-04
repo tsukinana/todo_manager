@@ -19,6 +19,7 @@ class ToDoMaster(db.Model):
     complate_flag = db.Column(db.Integer,nullable=False,default=0)
     frozen_flag = db.Column(db.Integer,nullable=False,default=0)
     priority_rank = db.Column(db.Integer,nullable=False,default=0)
+    delete_flag = db.Column(db.Integer,nullable=False,default=0)
     
     def toDict(self):
         return {
@@ -33,5 +34,6 @@ class ToDoMaster(db.Model):
             "complate_date":self.complate_date,
             "complate_flag":self.complate_flag,
             "frozen_flag":self.frozen_flag,
-            "priority_rank":self.priority_rank
+            "priority_rank":self.priority_rank,
+            "delete_flag":self.delete_flag
         }
