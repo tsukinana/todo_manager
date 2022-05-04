@@ -1,28 +1,20 @@
 #!/usr/bin/env python
 #-*-coding: utf-8-*-
 from flask import request,redirect,url_for,render_template,flash,session
-from todo_manager import app
+from todo_manager import app,ToDoMaster,org_get_logger
 from datetime import datetime
+
+logger = org_get_logger(__name__)
 
 @app.route("/")
 def show_entries():
-    #全てのtodoを表示
-    entries = [
-        {
-            "id":1,
-            "title":"初めての投稿",
-            "text":"内容",
-            "created_at":datetime.now(),
-        },
-        {
-            "id":2,
-            "title":"2つめの投稿",
-            "text":"内容",
-            "created_at":datetime.now(),
-        },
+    row = ToDoMaster.query.all()
+    
+    #ログ出力用
+    for entry in row:
+        logger.info(entry.toDict())
         
-    ]
-    return render_template("entries/index.html",entries=entries)
+    return render_template("entries/index.html",entries=row)
 
 @app.route("/entries",methods=["POST"])
 def add_entry():
