@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #-*-coding: utf-8-*-
+import os
 from flask import request,redirect,url_for,render_template,flash,session
 from todo_manager import app,ToDoMaster,org_get_logger,db
 from datetime import datetime
@@ -10,11 +11,15 @@ logger = org_get_logger(__name__)
 def show_entries():
     row = ToDoMaster.query.all()
     
-    #ログ出力用
+    #todo結果のログ出力用
     for entry in row:
         logger.info(entry.toDict())
+    
+    #static/imageのファイル名取得
+    image_list = os.listdir("todo_manager/static/image/")
+    logger.info(image_list)
         
-    return render_template("entries/index.html",entries=row)
+    return render_template("entries/index.html",entries=row,image_list=image_list)
 
 @app.route("/entries",methods=["POST"])
 def add_entry():

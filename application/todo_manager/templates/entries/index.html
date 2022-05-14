@@ -5,6 +5,17 @@
     <div class="card-body">
         <h5 class="card-title">{{entry.name}}</h5>
         <a href="{{url_for('show_entry',id=entry.id)}}" class="card-link">続きを読む</a>
+        <p id="random"></p>
+        <script type="text/javascript">
+            var imgList = {{image_list | tojson}};//flaskの値をjavascriptに渡してる
+            var selectNum = Math.floor(Math.random() * imgList.length);
+            var imgElement = document.createElement("img");
+            imgElement.src = "static/image/"+imgList[selectNum];
+            //imgElement.width = 200; // 横サイズ（px）
+            //imgElement.height = 200; // 縦サイズ（px）
+            var contentArea = document.getElementById("random");
+            contentArea.appendChild(imgElement);
+         </script>
     </div>
 </div>
     {% else %}投稿がありません{% endfor %}
