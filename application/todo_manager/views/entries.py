@@ -17,6 +17,7 @@ def show_entries():
     
     #static/imageのファイル名取得
     image_list = os.listdir("todo_manager/static/image/")
+    image_list.remove(".gitignore")
     logger.info(image_list)
         
     return render_template("entries/index.html",entries=row,image_list=image_list)
