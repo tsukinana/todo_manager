@@ -1,24 +1,30 @@
 {% extends "layout.html" %}
 {% block body %}
-<ul class="list-group list-group-flush">{% for entry in entries %}
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">{{entry.name}}   <span class="badge badge-primary badge-pill">期限:{{entry.dead_line}}</span></h5>
-        <p>{{entry.detail}}</p>
-        <a href="{{url_for('show_entry',id=entry.id)}}" class="card-link">続きを読む</a>
-        <p id={{entry.id}}></p>
-        <script type="text/javascript">
-            var imgList = {{image_list | tojson}};//flaskの値をjavascriptに渡してる
-            var selectNum = Math.floor(Math.random() * imgList.length);
-            var imgElement = document.createElement("img");
-            imgElement.src = "static/image/"+imgList[selectNum];
-            //imgElement.width = 200; // 横サイズ（px）
-            //imgElement.height = 200; // 縦サイズ（px）
-            var contentArea = document.getElementById({{entry.id}});
-            contentArea.appendChild(imgElement);
-         </script>
+<ul class="list-group list-group-flush">
+<div class="card-columns">
+    {% for entry in entries %}
+    <div class="card bg-info text-white">
+        <div class="card-body">
+            <p id={{entry.id}}></p>
+            <div class="card-img-overlay">
+                <h5 class="card-title">{{entry.name}}   <span class="badge badge-danger badge-pill">期限:{{entry.dead_line}}</span></h5>
+                <p>{{entry.detail}}</p>
+                <a href="{{url_for('show_entry',id=entry.id)}}" class="card-link">続きを読む</a>
+                <script type="text/javascript">
+                    var imgList = {{image_list | tojson}};//flaskの値をjavascriptに渡してる
+                    var selectNum = Math.floor(Math.random() * imgList.length);
+                    var imgElement = document.createElement("img");
+                    imgElement.src = "static/image/"+imgList[selectNum];
+                    imgElement.width = 200; // 横サイズ（px）
+                    imgElement.height = 300; // 縦サイズ（px）
+                    imgElement.style.opacity = 0.2; // 透明度
+                    var contentArea = document.getElementById({{entry.id}});
+                    contentArea.appendChild(imgElement);
+                </script>
+            </div>
+        </div>
     </div>
+    {% else %}todoがありません{% endfor %}
 </div>
-    {% else %}投稿がありません{% endfor %}
 </ul>
 {% endblock %}
