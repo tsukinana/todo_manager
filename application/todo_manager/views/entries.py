@@ -28,7 +28,7 @@ def add_entry():
     form = ToDoMaster(
         name=request.form['name'],
         detail=request.form['detail'],
-        remarks=request.form['remarks'],
+        remarks=request.form['remarks']
     )
     db.session.add(form)
     db.session.commit()

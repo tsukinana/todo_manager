@@ -14,7 +14,7 @@ class ToDoMaster(db.Model):
     tag_id = db.Column(db.String)
     create_date = db.Column(db.TIMESTAMP,nullable=False,default=datetime.now)
     update_date = db.Column(db.TIMESTAMP,nullable=False,default=datetime.now)
-    dead_line = db.Column(db.TIMESTAMP)
+    dead_line = db.Column(db.String,nullable=False,default="999912312359")
     complate_date = db.Column(db.TIMESTAMP)
     complate_flag = db.Column(db.Integer,nullable=False,default=0)
     frozen_flag = db.Column(db.Integer,nullable=False,default=0)
