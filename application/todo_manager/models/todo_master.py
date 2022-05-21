@@ -8,13 +8,12 @@ class ToDoMaster(db.Model):
     __tablename__ ="todo_master"
     
     id = db.Column(db.Integer,primary_key=True)
-    name = db.Column(db.String,nullable=True)
     detail = db.Column(db.String)
     remarks = db.Column(db.String)
     tag_id = db.Column(db.String)
     create_date = db.Column(db.TIMESTAMP,nullable=False,default=datetime.now)
     update_date = db.Column(db.TIMESTAMP,nullable=False,default=datetime.now)
-    dead_line = db.Column(db.String,nullable=False,default="999912312359")
+    dead_line = db.Column(db.String,nullable=False,default="9999-1231")
     complate_date = db.Column(db.TIMESTAMP)
     complate_flag = db.Column(db.Integer,nullable=False,default=0)
     frozen_flag = db.Column(db.Integer,nullable=False,default=0)
@@ -24,7 +23,6 @@ class ToDoMaster(db.Model):
     def toDict(self):
         return {
             "id":self.id,
-            "name":self.name,
             "detail":self.detail,
             "remarks":self.remarks,
             "tag_id":self.tag_id,

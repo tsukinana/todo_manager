@@ -7,7 +7,7 @@
         <div class="card-body">
             <div id={{entry.id}}></div>
             <div class="card-img-overlay">
-                <h5 class="card-title" id=title_{{entry.id}}>{{entry.name}}  </h5>
+                <h5 class="card-title" id=title_{{entry.id}}></h5>
                 <p>{{entry.detail}}</p>
                 <a href="{{url_for('show_entry',id=entry.id)}}" class="card-link">続きを読む</a>
                 <script type="text/javascript">
@@ -19,8 +19,8 @@
                     imgElement.style.opacity = 0.2; // 透明度
                     var contentArea = document.getElementById({{entry.id}});
                     contentArea.appendChild(imgElement);
-                    var deadLine ={{entry.dead_line}};
-                    if( deadLine != "999912312359"){
+                    var deadLine ="{{entry.dead_line}}";
+                    if( deadLine != "9999-12-31"){
                         var spanElement = document.createElement("span");
                         spanElement.classList.add("badge");
                         spanElement.classList.add("badge-danger");

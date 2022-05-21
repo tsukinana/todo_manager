@@ -26,13 +26,12 @@ def show_entries():
 def add_entry():
     #todoの新規作成処理を実装
     form = ToDoMaster(
-        name=request.form['name'],
         detail=request.form['detail'],
-        remarks=request.form['remarks']
+        dead_line=request.form['dead_line'] if request.form['dead_line'] else "9999-12-31"
     )
     db.session.add(form)
     db.session.commit()
-    return "新しいtodoが出来ました"
+    return redirect(url_for("show_entries"))
 
 @app.route("/entries/new",methods=["GET"])
 def new_entry():
