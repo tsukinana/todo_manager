@@ -3,12 +3,12 @@
 <ul class="list-group list-group-flush">
 <div class="card-columns">
     {% for entry in entries %}
-    <div class="card bg-info text-white">
+    <div class="card" id={{entry.id}}body>
         <div class="card-body">
             <div id={{entry.id}}></div>
             <div class="card-img-overlay">
                 <h5 class="card-title" id=title_{{entry.id}}></h5>
-                <p>{{entry.detail}}</p>
+                <p style="white-space: pre-wrap">{{entry.detail}}</p>
                 <a href="{{url_for('show_entry',id=entry.id)}}" class="card-link">続きを読む</a>
                 <script type="text/javascript">
                     var imgList = {{image_list | tojson}};//flaskの値をjavascriptに渡してる
@@ -29,6 +29,11 @@
                         var contentArea2 = document.getElementById("title_{{entry.id}}");
                         contentArea2.appendChild(spanElement);
                     }
+                </script>
+                <script>
+                    $(function(){
+                        $("#{{entry.id}}body").draggable();
+                    })
                 </script>
             </div>
         </div>
