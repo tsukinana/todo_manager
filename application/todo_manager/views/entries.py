@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #-*-coding: utf-8-*-
 import os
+from unicodedata import name
 from flask import request,redirect,url_for,render_template,flash,session
 from todo_manager import app,ToDoMaster,org_get_logger,db
 from datetime import datetime
@@ -26,10 +27,16 @@ def show_entries():
 def add_entry():
     #todoの新規作成処理を実装
     form = ToDoMaster(
+        name=request.form['name'],
         detail=request.form['detail'],
         dead_line=request.form['dead_line'] if request.form['dead_line'] else "9999-12-31"
     )
     db.session.add(form)
+    #一度flushしないとidが取得できない
+    db.session.flush()
+    #タスク名の記入がなければidをタスク名にする。
+    if not form.name:
+        form.name= "task#"+ str(form.id)
     db.session.commit()
     return redirect(url_for("show_entries"))
 

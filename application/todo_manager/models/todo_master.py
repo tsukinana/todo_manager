@@ -8,6 +8,7 @@ class ToDoMaster(db.Model):
     __tablename__ ="todo_master"
     
     id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String)
     detail = db.Column(db.String)
     remarks = db.Column(db.String)
     tag_id = db.Column(db.String)
@@ -23,6 +24,7 @@ class ToDoMaster(db.Model):
     def toDict(self):
         return {
             "id":self.id,
+            "name":self.name,
             "detail":self.detail,
             "remarks":self.remarks,
             "tag_id":self.tag_id,
