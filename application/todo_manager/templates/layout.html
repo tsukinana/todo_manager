@@ -24,7 +24,13 @@
             </ul>
         </div>
     </nav>
-
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <p><font color="red">{{msg}}</font></p>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
     <div class="blog-body">
         {% block body %}{% endblock %}
     </div>
