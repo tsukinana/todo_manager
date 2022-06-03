@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block body %}
+<ul class="list-group list-group-flush">
+<div class="card-columns">
+    {% for entry in entries %}
+    <div class="card" id={{entry.id}}body>
+        <div class="card-body">
+            <div id={{entry.id}}></div>
+            <div class="card-img-overlay">
+                <h5 class="card-title" id=title_{{entry.id}} style="white-space: pre-wrap">{{entry.name}}<br></h5>
+                <p style="white-space: pre-wrap">{{entry.detail}}</p>
+                <a href="{{url_for('show_entry',id=entry.id)}}" class="card-link">続きを読む</a>
+                <script type="text/javascript">
+                    var imgList = {{image_list | tojson}};//flaskの値をjavascriptに渡してる
+                    var selectNum = Math.floor(Math.random() * imgList.length);
+                    var imgElement = document.createElement("img");
+                    imgElement.classList.add("img-fluid");
+                    imgElement.src = "static/image/"+imgList[selectNum];
+                    imgElement.style.opacity = 0.2; // 透明度
+                    var contentArea = document.getElementById({{entry.id}});
+                    contentArea.appendChild(imgElement);
+                    var deadLine ="{{entry.dead_line}}";
+                    //期限のバッチ
+                    if( deadLine != "9999-12-31"){
+                        var spanElement = document.createElement("span");
+                        spanElement.classList.add("badge");
+                        spanElement.classList.add("badge-danger");
+                        spanElement.classList.add("badge-pill");
+                        spanElement.innerText ="期限:"+deadLine;
+                        var contentArea2 = document.getElementById("title_{{entry.id}}");
+                        contentArea2.appendChild(spanElement);
+                    }
+                </script>
+                <script>
+                    $(function(){
+                        $("#{{entry.id}}body").draggable();
+                    })
+                </script>
+            </div>
+        </div>
+    </div>
+    {% else %}todoがありません{% endfor %}
+</div>
+</ul>
+{% endblock %}
