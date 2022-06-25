@@ -64,14 +64,16 @@ def update_entry(id):
     entry = ToDoMaster.query.get(id)
     entry.name=request.form['name']
     entry.detail=request.form['detail']
+    entry.update_date=datetime.now()
     db.session.commit()
-    flash("タスクを更新しました。")
-    return redirect(url_for("show_entries"))
+    script ="""<script>
+            window.opener.location.reload();
+            window.close();
+            </script>"""
+    return script
 
 @app.route('/entries/<int:id>/delete',methods=['POST'])
 def delete_entry(id):
     """taskの削除処理"""
     ToDoMaster.query.filter_by(id = id).delete()
     db.session.commit()
-    flash("タスクを削除しました。")
-    return redirect(url_for("show_entries"))

@@ -75,7 +75,19 @@
       db.session.commit()
   ```
 
-  
+* python側からjs起動したいときは、scriptタグを返せばいい
+
+  ```python
+      script ="""<script>
+              window.opener.location.reload();
+              window.close();
+              </script>"""
+      return script
+  ```
+
+* show.htmlとedit.htmlでは、あえてそれぞれ違うやり方で自ウインドウのcloseと呼び出し元を更新するロジックを実現している。
+
+  show.htmlはfetchでpostし、自前でjsを実行。edit.htmlでformからpostした先のpython側でscriptタグを返す。
 
 
 

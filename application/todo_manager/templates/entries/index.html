@@ -9,8 +9,8 @@
             <div class="card-img-overlay">
                 <h5 class="card-title" id=title_{{entry.id}} style="white-space: pre-wrap">{{entry.name}}<br></h5>
                 <p style="white-space: pre-wrap">{{entry.detail}}</p>
-                <a href="{{url_for('show_entry',id=entry.id)}}" class="card-link">続きを読む</a>
                 <script type="text/javascript">
+
                     var imgList = {{image_list | tojson}};//flaskの値をjavascriptに渡してる
                     var selectNum = Math.floor(Math.random() * imgList.length);
                     var imgElement = document.createElement("img");
@@ -20,6 +20,8 @@
                     var contentArea = document.getElementById({{entry.id}});
                     contentArea.appendChild(imgElement);
                     var deadLine ="{{entry.dead_line}}";
+
+                    var contentArea2 = document.getElementById("title_{{entry.id}}");
                     //期限のバッチ
                     if( deadLine != "9999-12-31"){
                         var spanElement = document.createElement("span");
@@ -27,9 +29,18 @@
                         spanElement.classList.add("badge-danger");
                         spanElement.classList.add("badge-pill");
                         spanElement.innerText ="期限:"+deadLine;
-                        var contentArea2 = document.getElementById("title_{{entry.id}}");
                         contentArea2.appendChild(spanElement);
                     }
+                    var target = document.getElementById("{{entry.id}}body");
+                    target.addEventListener("click",()=>{
+                        window.open("{{url_for('show_entry',id=entry.id)}}",null,"width=1000,height=1800");
+                    }
+
+                    );
+
+                    
+
+
                 </script>
                 <script>
                     $(function(){
