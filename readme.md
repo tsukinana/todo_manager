@@ -88,6 +88,14 @@
 * show.htmlとedit.htmlでは、あえてそれぞれ違うやり方で自ウインドウのcloseと呼び出し元を更新するロジックを実現している。
 
   show.htmlはfetchでpostし、自前でjsを実行。edit.htmlでformからpostした先のpython側でscriptタグを返す。
+  
+* 右クリックメニューを一番前面に出現させる
+
+  ```html
+  <div id="contextmenu" style="z-index:10000">
+  ```
+
+  
 
 
 
