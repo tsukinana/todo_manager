@@ -1,5 +1,44 @@
 {% extends "layout.html" %}
 {% block body %}
+<head>
+    <style>
+        #contextmenu{
+          display:none;
+          position:fixed;
+          left:0px;
+          top:0px;
+          width:100px;
+          height:100px;
+          background-color:#f0f0f0;
+          border:1px solid #eee;
+        }
+        #contextmenu li{
+          cursor:pointer;
+        }
+        #contextmenu.show {
+          display: block;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false">
+    <div id="contextmenu" style="z-index:10000">
+        <ul>
+            <li id="showRight">show</li>
+            <li id="editRight">edit</li>
+            <li>complete</li>
+        </ul>
+        <script type="text/javascript">
+            var contextmenu = document.getElementById("contextmenu");
+            var body = document.body;
+            //右クリックメニュ非表示
+            body.addEventListener("click",function(){
+                if(contextmenu.classList.contains("show")){
+                    contextmenu.classList.remove("show");
+                }
+            })
+        </script>
+    </div>
+</body>
 <ul class="list-group list-group-flush">
 <div class="card-columns">
     {% for entry in entries %}
@@ -31,15 +70,21 @@
                         spanElement.innerText ="期限:"+deadLine;
                         contentArea2.appendChild(spanElement);
                     }
-                    var target = document.getElementById("{{entry.id}}body");
-                    target.addEventListener("click",()=>{
-                        window.open("{{url_for('show_entry',id=entry.id)}}",null,"width=1000,height=1800");
-                    }
 
-                    );
+                    //オリジナル右クリックメニュー
+                    var allowClick = document.getElementById("{{entry.id}}body");
 
-                    
-
+                    allowClick.addEventListener("contextmenu",function(e){
+                        contextmenu.style.left=e.pageX +"px";
+                        contextmenu.style.top=e.pageY +"px";
+                        contextmenu.classList.add("show");
+                        showRight.addEventListener("click",function(){
+                            window.open("{{url_for('show_entry',id=entry.id)}}",null,"width=1000,height=1800");
+                        })
+                        editRight.addEventListener("click",function(){
+                            window.open("{{url_for('edit_entry',id=entry.id)}}",null,"width=1000,height=1800");
+                        })
+                    });
 
                 </script>
                 <script>
